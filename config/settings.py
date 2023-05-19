@@ -60,3 +60,19 @@ class DataBaseSettings(BaseSettings):
 class TortoiseSettings(BaseSettings):
     generate_schemas: bool = Field(True, env="TORTOISE_GENERATE_SCHEMAS")
     add_exception_handlers: bool = Field(True, env="DATABASE_EXCEPTION_HANDLERS")
+
+
+class AuthSettings(BaseSettings):
+    type: str = Field("Bearer")
+    password_time: int = Field(3)
+    algorithm: str = Field("HS256")
+    expires: int = Field(60 * 60, env="TOKEN_EXPIRES")  # 1 час
+    hasher_deprecated: str = Field("auto")
+    hasher_schemes: list[str] = Field(["bcrypt"])
+    token_url: str = Field("users/login")
+
+    secret_key: str = Field("secret_key", env="AUTH_SECRET_KEY")
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
