@@ -1,4 +1,9 @@
-from common.exceptions import BaseNotAuthError, BaseForbiddenError, BaseNotFoundError, BaseConflictError
+from common.exceptions import (
+    BaseNotAuthError,
+    BaseForbiddenError,
+    BaseNotFoundError,
+    BaseConflictError
+)
 
 
 class UserTokenTimeOutError(BaseNotAuthError):

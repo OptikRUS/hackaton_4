@@ -29,9 +29,8 @@ def init_database(application: FastAPI) -> None:
     register_tortoise(application, config=database_config, **tortoise_config)
 
 
-# def init_exception_handlers(application: FastAPI) -> None:
-#     from common.handlers import common_exception_handler
-#     from common.exceptions.base import BaseHTTPException
-#
-#     application.add_exception_handler(BaseHTTPException, common_exception_handler)
-#
+def init_exception_handlers(application: FastAPI) -> None:
+    from common.handlers import common_exception_handler
+    from common.exceptions.base import BaseHTTPException
+
+    application.add_exception_handler(BaseHTTPException, common_exception_handler)
