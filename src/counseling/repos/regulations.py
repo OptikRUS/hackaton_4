@@ -20,7 +20,7 @@ class Regulation(Model):
         "models.Supervision", related_name="supervision_type", on_delete=fields.SET_NULL, null=True,
     )
     regulation_type: int = fields.ForeignKeyField(
-        "models.Supervision", related_name="regulation_type", on_delete=fields.SET_NULL, null=True,
+        "models.RegulationType", related_name="regulation_type", on_delete=fields.SET_NULL, null=True,
     )
     created_at: date = fields.DateField(description="Дата документа")
     publication_date: date = fields.DateField(description="Дата публикации")
