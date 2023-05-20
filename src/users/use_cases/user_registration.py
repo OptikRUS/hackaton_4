@@ -1,7 +1,7 @@
 from common.security import hasher
 from src.users.models import UserRegisterRequest
 from ..repos import UserRepo, User
-from ..exceptions import UserAlreadyRegisteredError, UserEmailTakenError, UserPhoneTakenError
+from ..exceptions import UserAlreadyRegisteredError
 from ..maintenance import su_registration
 
 from config import super_users_config

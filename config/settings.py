@@ -1,30 +1,29 @@
 from pydantic import BaseSettings, Field, validator
 
 
-class SiteSettings(BaseSettings):
+class AdvancedSettings(BaseSettings):
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+
+class SiteSettings(AdvancedSettings):
     host: str = Field("127.0.0.1", env="SITE_HOST")
     port: int = Field(8000, env="SITE_PORT")
     loop: str = Field("asyncio")
     log_level: str = Field("info", env="SITE_LOG_LEVEL")
     reload_delay: float = Field(0.25, env="SITE_RELOAD_DELAY")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
-
-class ApplicationSettings(BaseSettings):
-    title: str = Field("Fastapi with tortoise ORM template")
-    description = Field("Шаблон приложения на tortoise ORM")
+class ApplicationSettings(AdvancedSettings):
+    title: str = Field('Хакатон "Лидеры цифровой информации"')
+    description: str = Field("Мобильное приложение для прохождения предпринимателями проверок контрольных органов")
     debug: bool = Field(True, env="DEBUG")
     version: str = Field("0.1.0", env="APP_VERSION")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
-
-class DataBaseCredentials(BaseSettings):
+class DataBaseCredentials(AdvancedSettings):
     # postgres
     user: str = Field("postgres", env="DATABASE_USER")
     password: str = Field("postgres", env="DATABASE_PASSWORD")
@@ -32,12 +31,8 @@ class DataBaseCredentials(BaseSettings):
     db_name: str = Field("db_app", env="DATABASE_NAME")
     host: str = Field("localhost", env="DATABASE_HOST")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
-
-class DataBaseConnections(BaseSettings):
+class DataBaseConnections(AdvancedSettings):
     default: str = Field("postgres://{user}:{password}@{host}:{port}/{db_name}")
 
     @validator("default", pre=True)
@@ -45,7 +40,7 @@ class DataBaseConnections(BaseSettings):
         return db_url.format(**DataBaseCredentials().dict())
 
 
-class DataBaseModels(BaseSettings):
+class DataBaseModels(AdvancedSettings):
     models: list[str] = Field(
         [
             "aerich.models",
@@ -54,17 +49,17 @@ class DataBaseModels(BaseSettings):
     )
 
 
-class DataBaseSettings(BaseSettings):
+class DataBaseSettings(AdvancedSettings):
     connections: dict = Field(DataBaseConnections())
     apps: dict = Field(dict(models=DataBaseModels()))
 
 
-class TortoiseSettings(BaseSettings):
+class TortoiseSettings(AdvancedSettings):
     generate_schemas: bool = Field(True, env="TORTOISE_GENERATE_SCHEMAS")
     add_exception_handlers: bool = Field(True, env="DATABASE_EXCEPTION_HANDLERS")
 
 
-class AuthSettings(BaseSettings):
+class AuthSettings(AdvancedSettings):
     type: str = Field("Bearer")
     password_time: int = Field(3)
     algorithm: str = Field("HS256")
@@ -75,25 +70,13 @@ class AuthSettings(BaseSettings):
 
     secret_key: str = Field("secret_key", env="AUTH_SECRET_KEY")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
-
-class CORSSettings(BaseSettings):
+class CORSSettings(AdvancedSettings):
     allow_credentials: bool = Field(True)
     allow_methods: list[str] = Field(["*"])
     allow_headers: list[str] = Field(["*", "Authorization"])
     allow_origins: list[str] = Field(["*"], env="CORS_ORIGINS")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
-
-class SuperUsersSettings(BaseSettings):
+class SuperUsersSettings(AdvancedSettings):
     superusers: list[str] = Field(["admin"], env="SUPER_USERS")
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"

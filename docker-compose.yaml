@@ -4,7 +4,7 @@ services:
 
  # database service
   database:
-    image: postgres:14-alpine
+    image: postgres:15.2
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
