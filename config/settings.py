@@ -44,7 +44,9 @@ class DataBaseModels(AdvancedSettings):
     models: list[str] = Field(
         [
             "aerich.models",
-            "src.users.repos"
+            "src.users.repos",
+            "src.gis.repos",
+            "src.counseling.repos",
         ]
     )
 
