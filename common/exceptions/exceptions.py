@@ -2,6 +2,10 @@ from fastapi import status
 
 from .base import BaseHTTPException
 
+"""
+Базовые ошибки
+"""
+
 
 class BaseBadRequestError(BaseHTTPException):
     """

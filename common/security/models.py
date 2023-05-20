@@ -15,3 +15,4 @@ class UserType(str, Enum):
     """
     ANY = "any_user"
     ADMIN = "admin"
+    INSPECTOR = 'inspector'
