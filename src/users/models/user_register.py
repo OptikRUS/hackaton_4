@@ -20,8 +20,7 @@ class UserRegisterResponse(UserRegisterRequest):
     """
     Модель ответа регистрации пользователя
     """
-    updated_at: datetime
-    created_at: datetime
+    username: str = Field(...)
     password: SecretStr = Field(None, exclude=True)
 
     class Config:
