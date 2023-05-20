@@ -3,6 +3,7 @@ from tortoise.models import Model
 
 from common.orm.mixins import GenericMixin
 from ..entities import BaseUserRepo
+from ..constants import UserRole
 
 
 class User(Model):
@@ -13,7 +14,7 @@ class User(Model):
     username = fields.CharField(max_length=20, unique=True)
     password = fields.CharField(max_length=128, null=True)
     is_active = fields.BooleanField(default=True)
-    role = fields.CharField(default='client', max_length=9)
+    role = fields.CharEnumField(UserRole, max_length=10, default=UserRole.CLIENT, description="Роль пользователя")
 
     def __str__(self):
         return self.username

@@ -47,6 +47,7 @@ class DataBaseModels(AdvancedSettings):
             "src.users.repos",
             "src.gis.repos",
             "src.counseling.repos",
+            "src.meetings.repos",
         ]
     )
 
