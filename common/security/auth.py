@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 
 from src.users import exceptions as exc
-from src import User
+from src.users.repos import User
 from .models import Token, UserType
 
 from config import auth_config
@@ -92,7 +92,7 @@ class UserAuth:
         if not user.is_active:
             raise exc.UserNotActiveError
 
-        if self.user_type == UserType.ADMIN and not user.is_superuser:
+        if self.user_type == UserType.ADMIN:
             raise exc.UserForbiddenError
         return user
 

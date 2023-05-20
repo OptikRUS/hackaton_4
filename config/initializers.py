@@ -8,11 +8,11 @@ def init_app() -> FastAPI:
     return app
 
 
-# def init_cors(application: FastAPI) -> None:
-#     from fastapi.middleware.cors import CORSMiddleware
-#     from config import cors_config
-#
-#     application.add_middleware(CORSMiddleware, **cors_config)
+def init_cors(application: FastAPI) -> None:
+    from fastapi.middleware.cors import CORSMiddleware
+    from config import cors_config
+
+    application.add_middleware(CORSMiddleware, **cors_config)
 
 
 def init_routers(application: FastAPI) -> None:

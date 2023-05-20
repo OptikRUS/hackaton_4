@@ -25,6 +25,7 @@ class ApplicationSettings(BaseSettings):
 
 
 class DataBaseCredentials(BaseSettings):
+    # postgres
     user: str = Field("postgres", env="DATABASE_USER")
     password: str = Field("postgres", env="DATABASE_PASSWORD")
     port: str = Field("5432", env="DATABASE_PORT")
@@ -47,7 +48,8 @@ class DataBaseConnections(BaseSettings):
 class DataBaseModels(BaseSettings):
     models: list[str] = Field(
         [
-            ...
+            "aerich.models",
+            "src.users.repos"
         ]
     )
 
@@ -66,12 +68,31 @@ class AuthSettings(BaseSettings):
     type: str = Field("Bearer")
     password_time: int = Field(3)
     algorithm: str = Field("HS256")
-    expires: int = Field(60 * 60, env="TOKEN_EXPIRES")  # 1 час
+    expires: int = Field(60*60, env="TOKEN_EXPIRES")
     hasher_deprecated: str = Field("auto")
     hasher_schemes: list[str] = Field(["bcrypt"])
     token_url: str = Field("users/login")
 
     secret_key: str = Field("secret_key", env="AUTH_SECRET_KEY")
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+
+class CORSSettings(BaseSettings):
+    allow_credentials: bool = Field(True)
+    allow_methods: list[str] = Field(["*"])
+    allow_headers: list[str] = Field(["*", "Authorization"])
+    allow_origins: list[str] = Field(["*"], env="CORS_ORIGINS")
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+
+class SuperUsersSettings(BaseSettings):
+    superusers: list[str] = Field(["admin"], env="SUPER_USERS")
 
     class Config:
         env_file = ".env"
