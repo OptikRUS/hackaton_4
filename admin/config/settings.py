@@ -13,6 +13,8 @@ import os
 import environ
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy as _
+
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
@@ -30,7 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-nqzsleaz0oiddjyujr0%c(@ytn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'counseling.apps.CounselingConfig',
 ]
 
 MIDDLEWARE = [
@@ -112,12 +116,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = "ru"
+LANGUAGES = (("ru", _("Russian")), ("en", _("English")))
+TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
