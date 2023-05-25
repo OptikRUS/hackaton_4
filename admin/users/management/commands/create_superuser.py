@@ -20,4 +20,4 @@ class Command(BaseCommand):
             username=username,
             password=password,
         )
-        print(f'Суперпользователь {superuser.username} создан')
+        self.stdout.write(f'Суперпользователь {superuser.username} создан')
