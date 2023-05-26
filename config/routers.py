@@ -5,6 +5,7 @@ def get_routers() -> list[APIRouter]:
     from src.users.api import users_router
     from src.admins.api import admins_router
     from src.counseling.api import slots_router, supervisors_router
+    from src.meetings.api import meetings_router
 
     routers: list[APIRouter] = list()
 
@@ -12,5 +13,6 @@ def get_routers() -> list[APIRouter]:
     routers.append(admins_router)
     routers.append(slots_router)
     routers.append(supervisors_router)
+    routers.append(meetings_router)
 
     return routers

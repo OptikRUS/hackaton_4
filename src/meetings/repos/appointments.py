@@ -10,9 +10,6 @@ class Appointment(Model):
     Запись на консультирование
     """
     id = fields.IntField(pk=True)
-    supervisor: int = fields.ForeignKeyField(
-        "models.Supervisor", related_name="appointment", on_delete=fields.SET_NULL, null=True,
-    )
     user: int = fields.ForeignKeyField(
         "models.User", related_name="inspector", on_delete=fields.SET_NULL, null=True,
     )
@@ -20,8 +17,8 @@ class Appointment(Model):
         "models.Slot", related_name="slots", on_delete=fields.SET_NULL, null=True,
     )
 
-    def __str__(self):
-        return f"{self.supervisor} {self.slot}"
+    def __repr__(self):
+        return f"{self.user} {self.slot}"
 
     class Meta:
         table = "appointments"
