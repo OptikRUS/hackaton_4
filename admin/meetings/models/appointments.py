@@ -5,21 +5,13 @@ class Appointment(models.Model):
     """
     Запись на консультирование
     """
-    supervisor: int = models.ForeignKey(
-        "counseling.Supervisor",
-        related_name="appointment",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name="КНО",
-    )
     user: int = models.ForeignKey(
         "users.User",
         related_name="inspector",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="Инспектор",
+        verbose_name="Клиент",
     )
     slot: int = models.ForeignKey(
         "meetings.Slot", related_name="slots",
@@ -30,7 +22,7 @@ class Appointment(models.Model):
     )
 
     def __str__(self):
-        return f"{self.supervisor} {self.slot}"
+        return f"Пользователь: {self.user} {self.slot}"
 
     class Meta:
         managed = False

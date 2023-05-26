@@ -22,4 +22,5 @@ class SlotAdmin(admin.ModelAdmin):
         else:
             add_slots(1)
 
+    time_interval.short_description = "Время слота"
     add_new_month_slots.short_description = 'Добавить слоты на следующий месяц'
