@@ -15,6 +15,7 @@ class Slot(Model):
     slot_date: date = fields.DateField(description="Дата слота")
     slot_time: time = fields.TimeField(description="Время слота")
     is_open: bool = fields.BooleanField(description="Доступность слота", default=True)
+    supervisor: int = fields.ForeignKeyField("models.Supervisor", related_name="slots")
 
     def __str__(self):
         return f"{self.slot_date} {self.slot_time}"
@@ -27,4 +28,4 @@ class SlotRepo(BaseMeetingRepo, GenericMixin):
     """
     Репозиторий слотов
     """
-    model = Slot
+    model: Slot = Slot

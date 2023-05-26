@@ -10,6 +10,14 @@ class Slot(models.Model):
     slot_date = models.DateField(verbose_name="Дата слота")
     slot_time = models.TimeField(verbose_name="Время слота")
     is_open: bool = models.BooleanField(verbose_name="Доступность слота", default=True)
+    supervisor: int = models.ForeignKey(
+        "counseling.Supervisor",
+        related_name="slots",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="КНО",
+    )
 
     def __str__(self):
         return f"Дата: {self.slot_date}\nВремя: {self.get_hour_slot}"

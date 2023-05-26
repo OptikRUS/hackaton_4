@@ -3,14 +3,12 @@ from django.contrib import admin
 from ..models import Slot
 from ..fixtures import add_slots
 
-from counseling.fixtures import fill_counseling_themes
-
 
 @admin.register(Slot)
 class SlotAdmin(admin.ModelAdmin):
-    list_display = ('slot_date', 'time_interval', 'is_open')
+    list_display = ("slot_date", "time_interval", "is_open", "supervisor",)
     date_hierarchy = "slot_date"
-    list_filter = ("is_open", "slot_date", "slot_time")
+    list_filter = ("is_open", "slot_date", "slot_time", "supervisor")
 
     actions = ['add_new_month_slots']
 

@@ -11,7 +11,7 @@ class Supervision(Model):
     """
     id = fields.IntField(pk=True)
     name: str = fields.TextField(null=True, description="Вид контроля (надзора)")
-    supervisor: int = fields.ForeignKeyField("models.Supervisor", related_name="supervisors")
+    supervisor: int = fields.ForeignKeyField("models.Supervisor", related_name="supervisions")
 
     def __str__(self):
         return self.name.split()[-5]
