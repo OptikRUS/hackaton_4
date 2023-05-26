@@ -1,3 +1,5 @@
+from datetime import time
+
 from django.db import models
 
 
@@ -10,10 +12,14 @@ class Slot(models.Model):
     is_open: bool = models.BooleanField(verbose_name="Доступность слота", default=True)
 
     def __str__(self):
-        return f"{self.slot_date} {self.slot_time}"
+        return f"Дата: {self.slot_date}\nВремя: {self.get_hour_slot}"
+
+    @property
+    def get_hour_slot(self):
+        return f"{time(self.slot_time.hour)} – {time(self.slot_time.hour + 1)}"
 
     class Meta:
         managed = False
         db_table = "slots"
         verbose_name = "Слот записи на консультирование"
-        verbose_name_plural = "Слоты записей на консультирование"
+        verbose_name_plural = "Слоты записи на консультирование"
