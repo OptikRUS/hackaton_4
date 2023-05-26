@@ -3,6 +3,8 @@ from django.contrib import admin
 from ..models import Slot
 from ..fixtures import add_slots
 
+from counseling.fixtures import fill_counseling_themes
+
 
 @admin.register(Slot)
 class SlotAdmin(admin.ModelAdmin):
