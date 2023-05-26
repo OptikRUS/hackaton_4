@@ -9,11 +9,6 @@ class Slot(BaseCounselingModel):
     slot_time: time
 
 
-class Supervision(BaseCounselingModel):
-    id: int
-    name: str
-
-
 class SlotListResponse(BaseCounselingModel):
     id: int
     name: str

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Query
 
 from common.security import UserAuth, UserType
 from src.meetings.repos import SlotRepo
-from ..use_cases import GetSlotsCase
+from ..use_cases import GetSlotListCase
 from ..repos import SupervisorRepo
 from ..models import SlotListResponse
 
@@ -22,5 +22,5 @@ async def get_slots_list_view(supervisor_id: int = Query(..., description="super
         supervisor_repo=SupervisorRepo,
         slot_repo=SlotRepo,
     )
-    get_slots: GetSlotsCase = GetSlotsCase(**resources)
+    get_slots: GetSlotListCase = GetSlotListCase(**resources)
     return await get_slots(supervisor_id=supervisor_id)

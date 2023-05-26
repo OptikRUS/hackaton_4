@@ -4,7 +4,7 @@ from src.meetings.repos import SlotRepo
 from ..repos import Supervisor, SupervisorRepo
 
 
-class GetSlotsCase:
+class GetSlotListCase:
     """
     Кейс получения свободных слотов
     """
