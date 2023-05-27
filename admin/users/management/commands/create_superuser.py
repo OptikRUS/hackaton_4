@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from users.models import User
+from counseling.fixtures import fill_supervisor_and_supervision, fill_counseling_themes
 
 
 class Command(BaseCommand):
@@ -20,4 +21,6 @@ class Command(BaseCommand):
             username=username,
             password=password,
         )
+        fill_supervisor_and_supervision()
+        fill_counseling_themes()
         self.stdout.write(f'Суперпользователь {superuser.username} создан')
