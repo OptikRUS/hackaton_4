@@ -4,7 +4,9 @@ from counseling.models import Supervisor
 from ..models import Slot
 
 
-def add_slots(month: int, start_hour: int | None = 8, end_hour: int | None = 20, year: int = datetime.now().year):
+def add_slots(
+        month: int, start_hour: int | None = 8, end_hour: int | None = 20, year: int = datetime.now().year
+) -> None:
     supervisors: list[Supervisor] = Supervisor.objects.all()
     for supervisor in supervisors:
         for day in range(1, 32):
