@@ -4,12 +4,12 @@
     <div style="display: flex; gap: 10px;">
         <form action="add_new_month/" method="POST">
             {% csrf_token %}
-            <input type="text" name="month" placeholder="Введите месяц">
+            <input type="text" name="month" placeholder="Введите номер месяца">
             <button class="button" type="submit">Создать слоты</button>
         </form>
         <form action="remove_month/" method="POST">
             {% csrf_token %}
-            <input type="text" name="month" placeholder="Введите месяц">
+            <input type="text" name="month" placeholder="Введите номер месяца">
             <button class="button" type="submit">Удалить слоты</button>
         </form>
     </div>
