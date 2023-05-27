@@ -12,8 +12,14 @@ class Topic(Model):
     id = fields.IntField(pk=True)
     name: str = fields.TextField(null=True, description="Название темы консультирования")
 
-    def __str__(self):
-        return self.name.split()[-5]
+    def __str__(self) -> str:
+        return self.text_shorter(self.name)
+
+    def text_shorter(self, text: str, length=5) -> str:
+        words: list[str] = text.split()
+        if len(words) > length:
+            return " ".join(words[:length]) + "..."
+        return text
 
     class Meta:
         table = "topics"

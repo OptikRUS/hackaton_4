@@ -3,7 +3,8 @@ from typing import Any
 
 from config.settings import (
     SiteSettings, ApplicationSettings, DataBaseCredentials, AuthSettings,
-    CORSSettings, SuperUsersSettings, DataBaseSettings, TortoiseSettings
+    CORSSettings, SuperUsersSettings, DataBaseSettings, TortoiseSettings,
+    ZoomSettings,
 )
 
 base_dir: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -15,3 +16,4 @@ auth_config: dict[str, Any] = AuthSettings().dict()
 super_users_config: dict[str, Any] = SuperUsersSettings().dict()
 database_config: dict[str, Any] = DataBaseSettings().dict()
 tortoise_config: dict[str, Any] = TortoiseSettings().dict()
+zoom_config: dict[str, Any] = ZoomSettings().dict()

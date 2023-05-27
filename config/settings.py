@@ -10,7 +10,7 @@ class AdvancedSettings(BaseSettings):
 
 class SiteSettings(AdvancedSettings):
     host: str = Field("127.0.0.1", env="SITE_HOST")
-    port: int = Field(8000, env="SITE_PORT")
+    port: int = Field(8000)
     loop: str = Field("asyncio")
     log_level: str = Field("info", env="SITE_LOG_LEVEL")
     reload_delay: float = Field(0.25, env="SITE_RELOAD_DELAY")
@@ -83,3 +83,9 @@ class CORSSettings(AdvancedSettings):
 
 class SuperUsersSettings(AdvancedSettings):
     superusers: list[str] = Field(["admin"], env="SUPER_USERS")
+
+
+class ZoomSettings(AdvancedSettings):
+    base_url: str = Field("https://api.zoom.us/v2", env="ZOOM_URL")
+    api_key: str = Field("api_key", env="ZOOM_API_KEY")
+    api_secret: str = Field("api_key", env="ZOOM_API_SECRET")
