@@ -38,7 +38,7 @@ class SlotAdmin(admin.ModelAdmin):
     def add_new_month(self, request) -> HttpResponseRedirect:
         if month := request.POST.get("month"):
             add_slots(month=int(month))
-            self.message_user(request, f"Слоты для {month} месяца добавлены")
+            self.message_user(request, f"Слоты для {month} месяц добавлены")
             return HttpResponseRedirect("../")
         else:
             self.message_user(request, "Вы не ввели месяц")
