@@ -14,10 +14,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        if not options:
-            username, password = "django", "password123"
-        else:
-            username, password = options['username'], options['password']
+        username, password = options['username'], options['password']
         self.stdout.write("Creating new superuser...")
         user: User = User.objects.filter(username=username)
         if not user:
