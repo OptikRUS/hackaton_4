@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 
 from common.security import UserAuth, UserType
 from src.users.repos import User

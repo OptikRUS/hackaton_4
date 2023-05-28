@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Appointment(models.Model):
+class Meeting(models.Model):
     """
     Запись на консультирование
     """
@@ -57,6 +57,6 @@ class Appointment(models.Model):
 
     class Meta:
         managed = False
-        db_table = "appointments"
+        db_table = "meetings"
         verbose_name = "Запись на консультирование"
         verbose_name_plural = "Записи на консультирование"

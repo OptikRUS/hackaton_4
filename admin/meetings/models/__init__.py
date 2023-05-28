@@ -1,2 +1,2 @@
-from .appointments import Appointment
+from .appointments import Meeting
 from .slots import Slot

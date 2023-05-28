@@ -21,6 +21,14 @@ class User(AbstractUser):
         default=UserRole.CLIENT,
         verbose_name="Роль пользователя",
     )
+    supervisor: int = models.ForeignKey(
+        "counseling.Supervisor",
+        related_name="supervisor",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="КНО",
+    )
 
     class Meta:
         managed = False

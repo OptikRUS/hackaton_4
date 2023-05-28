@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query, Path
+from fastapi import APIRouter, Depends, Query, Path, Body
 
 from common.security import UserAuth, UserType
 from common.zoom import zoom_client
@@ -6,15 +6,14 @@ from src.meetings.repos import SlotRepo, AppointmentRepo
 from src.counseling.repos import TopicRepo
 from src.users.repos import User
 from ..use_cases import ReserveSlotCase, ApproveMeetingCase, RejectMeetingCase
-from ..models import Meeting, ApprovedMeeting
+from ..models import Meeting, ApprovedMeeting, SlotReserveRequest
 
 router: APIRouter = APIRouter(prefix="/meetings", tags=["meetings"])
 
 
 @router.post("/reserve", response_model=Meeting)
 async def reserve_slot_view(
-        slot_id: int = Query(..., description="slot_id"),
-        topic_id: int = Query(..., description="topic_id"),
+        payload: SlotReserveRequest,
         user: User = Depends(UserAuth(UserType.CLIENT))
 ):
     """
@@ -26,7 +25,7 @@ async def reserve_slot_view(
         topic_repo=TopicRepo,
     )
     reserve_slot: ReserveSlotCase = ReserveSlotCase(**resources)
-    return await reserve_slot(slot_id=slot_id, topic_id=topic_id, user_id=user.id)
+    return await reserve_slot(payload=payload, user_id=user.id)
 
 
 @router.patch("/approve/{meeting_id}", response_model=ApprovedMeeting)

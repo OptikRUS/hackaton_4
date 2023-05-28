@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from ..models import Appointment
+from ..models import Meeting
 
 
-@admin.register(Appointment)
+@admin.register(Meeting)
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = (
         "user",

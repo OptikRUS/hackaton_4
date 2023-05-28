@@ -1,6 +1,7 @@
 from src.counseling.repos import TopicRepo, Topic
 from ..repos import SlotRepo, Slot, AppointmentRepo, Meeting
 from ..constants import MeetingStatus
+from ..models import SlotReserveRequest
 from ..exceptions import SlotNotFoundError, TopicNotFoundError
 
 
@@ -18,11 +19,11 @@ class ReserveSlotCase:
         self.appointment_repo: AppointmentRepo = appointment_repo()
         self.topic_repo: TopicRepo = topic_repo()
 
-    async def __call__(self, slot_id: int, topic_id: int, user_id: int) -> Meeting:
-        slot: Slot = await self.slot_repo.retrieve(filters=dict(id=slot_id, is_open=True))
+    async def __call__(self, payload: SlotReserveRequest, user_id: int) -> Meeting:
+        slot: Slot = await self.slot_repo.retrieve(filters=dict(id=payload.slot_id, is_open=True))
         if not slot:
             raise SlotNotFoundError
-        topic: Topic = await self.topic_repo.retrieve(filters=dict(id=topic_id))
+        topic: Topic = await self.topic_repo.retrieve(filters=dict(id=payload.topic_id))
         if not topic:
             raise TopicNotFoundError
 
