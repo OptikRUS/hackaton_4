@@ -7,7 +7,6 @@ class User(AbstractUser):
     """
     Модель пользователя
     """
-
     class UserRole(models.TextChoices):
         CLIENT = "client", _("Клиент")
         INSPECTOR = "inspector", _("Инспектор")

@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from common.security import UserAuth, UserLogin, Token, UserType
 from ..repos import User
 from ..models import UserRegisterRequest, UserRegisterResponse, UserResponse, UserUpdateRequest
-from ..use_cases import UserRegistration, GetUser, UpdateUserProfile
+from ..use_cases import UserRegistration, UpdateUserProfile
 from ..exceptions import BaseUserExceptionModel
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -48,22 +48,6 @@ async def get_me(current_user: User = Depends(UserAuth(UserType.ANY))):
     Получить информацию о себе
     """
     return current_user
-
-
-@router.get(
-    "/{user_id}",
-    status_code=200,
-    response_model=UserResponse,
-    responses={
-        404: {"model": BaseUserExceptionModel}
-    }
-)
-async def get_user(user_id: int):
-    """
-    Получить информации о пользователе
-    """
-    get_some_user: GetUser = GetUser()
-    return await get_some_user(user_id)
 
 
 @router.put(

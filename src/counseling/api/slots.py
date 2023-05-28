@@ -11,10 +11,10 @@ router: APIRouter = APIRouter(prefix="/slots", tags=["slots"])
 
 @router.get(
     "/list",
-    # dependencies=[Depends(UserAuth(UserType.CLIENT))],
+    dependencies=[Depends(UserAuth(UserType.CLIENT))],
     response_model=SlotListResponse,
 )
-async def get_slots_list_view(supervisor_id: int = Query(..., description="supervisor_id")):
+async def get_slot_list_view(supervisor_id: int = Query(..., description="supervisor_id")):
     """
     Получение списка свободных слотов для КНО
     """

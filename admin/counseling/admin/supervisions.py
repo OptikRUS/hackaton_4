@@ -5,4 +5,4 @@ from ..models import Supervision
 
 @admin.register(Supervision)
 class SupervisionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name", )

@@ -8,7 +8,7 @@ class Topic(models.Model):
     name: str = models.TextField(null=True, verbose_name="Название темы консультирования")
 
     def __str__(self) -> str:
-        return self.text_shorter(self.name)
+        return self.text_shorter(self.name) if self.name else self.id
 
     def text_shorter(self, text: str, length=5) -> str:
         words: list[str] = text.split()

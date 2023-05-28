@@ -40,7 +40,7 @@ services:
 #    container_name: ${ADMIN_APP_NAME}
     build: ./admin
     command: >
-      sh -c "python manage.py migrate &&
+      sh -c "python manage.py migrate && python manage.py create_superuser &&
              python manage.py runserver '${ADMIN_SITE_HOST}:${ADMIN_SITE_PORT}'"
     ports:
       - ${ADMIN_SITE_PORT}:${ADMIN_SITE_PORT}

@@ -1,1 +1,1 @@
-from .user import User, UserRepo
+from .user import User, UserRepo, UserGroup, UserPermission

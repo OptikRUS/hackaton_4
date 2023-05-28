@@ -24,5 +24,4 @@ class GetSlotListCase:
                 dict(relation="slots", queryset=slots_qs, to_attr="open_slots")
             ]
         )
-
         return supervisor

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 
 from common.security import UserAuth, UserType
 from ..use_cases import GetSupervisorListCase
@@ -10,7 +10,7 @@ router: APIRouter = APIRouter(prefix="/supervisors", tags=["supervisors"])
 
 @router.get(
     "/list",
-    # dependencies=[Depends(UserAuth(UserType.CLIENT))],
+    dependencies=[Depends(UserAuth(UserType.CLIENT))],
     response_model=list[SupervisorResponse],
 )
 async def get_supervisors_list_view():

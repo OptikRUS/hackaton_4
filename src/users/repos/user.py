@@ -30,6 +30,34 @@ class User(Model):
         table = "users_user"
 
 
+class UserGroup(Model):
+    """
+    Группы пользователей
+    """
+    group_id = fields.IntField()
+    user: int = fields.ForeignKeyField("models.User", related_name="user_group")
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        table = "users_user_groups"
+
+
+class UserPermission(Model):
+    """
+    Права пользователей
+    """
+    permission_id = fields.IntField()
+    user: int = fields.ForeignKeyField("models.User", related_name="user")
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        table = "users_user_user_permissions"
+
+
 class UserRepo(BaseUserRepo, GenericMixin):
     """
     Репозиторий пользователя

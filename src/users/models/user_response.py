@@ -6,3 +6,4 @@ class UserResponse(UserRegisterResponse):
     Модель ответа пользователя
     """
     id: int
+    role: str

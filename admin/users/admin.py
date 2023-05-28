@@ -5,4 +5,5 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("__str__", "role", "last_login")
+    exclude = ("groups", "user_permissions", "password")

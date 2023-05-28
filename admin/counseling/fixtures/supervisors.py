@@ -12,12 +12,11 @@ def fill_supervisor_and_supervision() -> None:
             supervisor_name: str = row[1]
             supervision_name: str = row[2]
             supervisor: Supervisor = Supervisor.objects.update_or_create(id=supervisor_id, name=supervisor_name)
-            supervision: Supervision = Supervision.objects.update_or_create(
+            Supervision.objects.update_or_create(
                 name=supervision_name, supervisor=supervisor[0]
             )
-            print()
         elif row[0] is None:
             supervision_name: str = row[2]
-            supervision: Supervision = Supervision.objects.update_or_create(
+            Supervision.objects.update_or_create(
                 name=supervision_name, supervisor=supervisor[0]
             )

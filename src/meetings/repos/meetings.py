@@ -5,21 +5,21 @@ from common.orm.mixins import GenericMixin
 from ..entities import BaseMeetingRepo
 
 
-class Appointment(Model):
+class Meeting(Model):
     """
     Запись на консультирование
     """
     id = fields.IntField(pk=True)
-    user: fields.ForeignKeyNullableRelation = fields.ForeignKeyField(
+    user: fields.ForeignKeyNullableRelation["User"] = fields.ForeignKeyField(
         "models.User", related_name="client", on_delete=fields.SET_NULL, null=True,
     )
-    inspector: fields.ForeignKeyNullableRelation = fields.ForeignKeyField(
+    inspector: fields.ForeignKeyNullableRelation["User"] = fields.ForeignKeyField(
         "models.User", related_name="inspector", on_delete=fields.SET_NULL, null=True,
     )
-    slot: fields.ForeignKeyNullableRelation = fields.ForeignKeyField(
+    slot: fields.ForeignKeyNullableRelation["Slot"] = fields.ForeignKeyField(
         "models.Slot", related_name="slots", on_delete=fields.SET_NULL, null=True,
     )
-    topic: int = fields.ForeignKeyField("models.Topic", related_name="topic_name")
+    topic: fields.ForeignKeyNullableRelation["Topic"] = fields.ForeignKeyField("models.Topic", related_name="topic_name")
     start_url: str = fields.CharField(max_length=2048, description="URL начала встречи", null=True)
     join_url: str = fields.CharField(max_length=2048, description="URL для присоединения", null=True)
     status: str = fields.CharField(max_length=50, default="not_approve", description="Статус встречи")  # "waiting"
@@ -29,11 +29,11 @@ class Appointment(Model):
         return f"{self.user} {self.slot}"
 
     class Meta:
-        table = "appointments"
+        table = "meetings"
 
 
 class AppointmentRepo(BaseMeetingRepo, GenericMixin):
     """
     Репозиторий записи на консультирование
     """
-    model: Appointment  = Appointment
+    model: Meeting = Meeting

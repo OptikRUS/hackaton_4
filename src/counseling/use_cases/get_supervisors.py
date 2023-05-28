@@ -1,6 +1,5 @@
 from tortoise.queryset import QuerySet
 
-from src.meetings.repos import SlotRepo
 from ..repos import Supervisor, SupervisorRepo, SupervisionRepo
 
 

@@ -5,4 +5,4 @@ from ..models import Topic
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("name", )

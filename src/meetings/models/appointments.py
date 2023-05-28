@@ -1,7 +1,7 @@
 from ..entities import BaseMeetingModel
 
 
-class Appointment(BaseMeetingModel):
+class Meeting(BaseMeetingModel):
     id: int
     slot_id: int
     user_id: int
@@ -9,7 +9,7 @@ class Appointment(BaseMeetingModel):
     is_approved: bool
 
 
-class ApprovedAppointment(Appointment):
+class ApprovedMeeting(Meeting):
     inspector_id: int
     start_url: str
     join_url: str

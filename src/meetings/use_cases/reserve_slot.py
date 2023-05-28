@@ -1,5 +1,7 @@
 from src.counseling.repos import TopicRepo, Topic
-from ..repos import SlotRepo, Slot, AppointmentRepo, Appointment
+from ..repos import SlotRepo, Slot, AppointmentRepo, Meeting
+from ..constants import MeetingStatus
+from ..exceptions import SlotNotFoundError, TopicNotFoundError
 
 
 class ReserveSlotCase:
@@ -16,20 +18,20 @@ class ReserveSlotCase:
         self.appointment_repo: AppointmentRepo = appointment_repo()
         self.topic_repo: TopicRepo = topic_repo()
 
-    async def __call__(self, slot_id: int, topic_id: int, user_id: int) -> Appointment:
+    async def __call__(self, slot_id: int, topic_id: int, user_id: int) -> Meeting:
         slot: Slot = await self.slot_repo.retrieve(filters=dict(id=slot_id, is_open=True))
         if not slot:
-            print("Ошибка: Свободный слот не найден")
+            raise SlotNotFoundError
         topic: Topic = await self.topic_repo.retrieve(filters=dict(id=topic_id))
         if not topic:
-            print("Ошибка: Тема консультации не найдена")
+            raise TopicNotFoundError
 
-        appointment_data: dict = dict(
+        meeting_data: dict = dict(
             user_id=user_id,
             slot_id=slot.id,
             topic_id=topic.id,
-            status="not_approve",
+            status=MeetingStatus.NOT_APPROVE.value,
         )
-        appointment: Appointment = await self.appointment_repo.create(data=appointment_data)
+        meeting: Meeting = await self.appointment_repo.create(data=meeting_data)
         await self.slot_repo.update(model=slot, data=dict(is_open=False))
-        return appointment
+        return meeting
