@@ -10,7 +10,7 @@ class AdvancedSettings(BaseSettings):
 
 class SiteSettings(AdvancedSettings):
     host: str = Field("127.0.0.1", env="SITE_HOST")
-    port: int = Field(5000, env="SITE_PORT")
+    port: int = Field(5000, env="SITE_PORT")  # todo в env
     loop: str = Field("asyncio")
     log_level: str = Field("info", env="SITE_LOG_LEVEL")
     reload_delay: float = Field(0.25, env="SITE_RELOAD_DELAY")
