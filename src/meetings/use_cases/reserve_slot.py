@@ -1,5 +1,6 @@
 from src.counseling.repos import TopicRepo, Topic
 from ..repos import SlotRepo, Slot, AppointmentRepo, Appointment
+from ..constants import MeetingStatus
 
 
 class ReserveSlotCase:
@@ -28,7 +29,7 @@ class ReserveSlotCase:
             user_id=user_id,
             slot_id=slot.id,
             topic_id=topic.id,
-            status="not_approve",
+            status=MeetingStatus.NOT_APPROVE.value,
         )
         appointment: Appointment = await self.appointment_repo.create(data=appointment_data)
         await self.slot_repo.update(model=slot, data=dict(is_open=False))

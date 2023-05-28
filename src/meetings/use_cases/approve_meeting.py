@@ -4,7 +4,7 @@ from common.zoom import ZoomClient, ZoomMeeting
 from ..repos import AppointmentRepo, Appointment
 
 
-class ApproveMeetingsCase:
+class ApproveMeetingCase:
     """
     Кейс подтверждения записи на консультацию
     """
@@ -28,7 +28,7 @@ class ApproveMeetingsCase:
         zoom_meeting_data: dict = dict(
             topic=appointment.topic.name,
             start_time=str(start_datetime),
-            duration_min=30,
+            duration_min=60,
             password='not-secure'
         )
         zoom_meeting: ZoomMeeting = self.zoom_client.meetings.create_meeting(**zoom_meeting_data)

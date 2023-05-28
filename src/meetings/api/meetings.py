@@ -5,7 +5,7 @@ from common.zoom import zoom_client
 from src.meetings.repos import SlotRepo, AppointmentRepo
 from src.counseling.repos import TopicRepo
 from src.users.repos import User
-from ..use_cases import ReserveSlotCase, ApproveMeetingsCase
+from ..use_cases import ReserveSlotCase, ApproveMeetingCase, RejectMeetingCase
 from ..models import Appointment, ApprovedAppointment
 
 router: APIRouter = APIRouter(prefix="/meetings", tags=["meetings"])
@@ -41,5 +41,24 @@ async def approve_meeting_view(
         appointment_repo=AppointmentRepo,
         zoom_client=zoom_client,
     )
-    approve_meeting: ApproveMeetingsCase = ApproveMeetingsCase(**resources)
+    approve_meeting: ApproveMeetingCase = ApproveMeetingCase(**resources)
     return await approve_meeting(appointment_id=appointment_id, inspector_id=inspector.id)
+
+
+@router.patch(
+    "/reject/{appointment_id}",
+    response_model=ApprovedAppointment,
+)
+async def reject_meeting_view(
+        appointment_id: int = Path(..., description="appointment_id"),
+        inspector: User = Depends(UserAuth(UserType.INSPECTOR)),
+):
+    """
+    Отклонения записи на консультацию
+    """
+    resources: dict = dict(
+        slot_repo=SlotRepo,
+        appointment_repo=AppointmentRepo,
+    )
+    reject_meeting: RejectMeetingCase = RejectMeetingCase(**resources)
+    return await reject_meeting(appointment_id=appointment_id, inspector_id=inspector.id)

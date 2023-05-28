@@ -14,4 +14,4 @@ def fill_counseling_themes() -> None:
             supervisor = Supervisor.objects.filter(name__icontains=supervisor_name).first()
             supervision = Supervision.objects.filter(name__icontains=supervision_name).first()
             if supervisor and supervision:
-                Topic.objects.create(name=topic_name)
+                Topic.objects.get_or_create(name__icontains=topic_name)

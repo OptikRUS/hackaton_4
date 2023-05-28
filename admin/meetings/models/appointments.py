@@ -9,6 +9,7 @@ class Appointment(models.Model):
     class Status(models.TextChoices):
         WAIT = "waiting", _("Ожидание встречи")
         NOT_APPROVE = "not_approve", _("Ожидает подтверждения")
+        REJECTED = "rejected", _("Отклонено")
 
     user: int = models.ForeignKey(
         "users.User",
