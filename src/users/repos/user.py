@@ -22,6 +22,9 @@ class User(Model):
     email = fields.CharField(max_length=256, null=True, description="Почта")
     date_joined = fields.DatetimeField(auto_now_add=True, description="Создан")
     role = fields.CharEnumField(UserRole, max_length=10, default=UserRole.CLIENT, description="Роль пользователя")
+    supervisor: int = fields.ForeignKeyField(
+        "models.Supervisor", on_delete=fields.SET_NULL, null=True, related_name="inspector",
+    )
 
     def __str__(self):
         return self.username

@@ -1,26 +1,63 @@
 from fastapi import APIRouter, Depends, Query
 
 from common.security import UserAuth, UserType
+from src.users.repos import User
 from src.meetings.repos import SlotRepo
-from ..use_cases import GetSlotListCase
-from ..repos import SupervisorRepo
-from ..models import SlotListResponse
+from ..use_cases import GetOpenSlotListCase, GetClosedSlotListCase, GetApprovedSlotListCase
+from ..models import Slot
 
 router: APIRouter = APIRouter(prefix="/slots", tags=["slots"])
 
 
 @router.get(
-    "/list",
+    "/opened_list",
     dependencies=[Depends(UserAuth(UserType.CLIENT))],
-    response_model=SlotListResponse,
+    response_model=list[Slot],
 )
-async def get_slot_list_view(supervisor_id: int = Query(..., description="supervisor_id")):
+async def get_opened_slot_list_view(
+        inspector: User = Depends(UserAuth(UserType.INSPECTOR))
+):
     """
-    Получение списка свободных слотов для КНО
+    Получение списка свободных слотов для инспектора КНО
     """
     resources: dict = dict(
-        supervisor_repo=SupervisorRepo,
         slot_repo=SlotRepo,
     )
-    get_slots: GetSlotListCase = GetSlotListCase(**resources)
-    return await get_slots(supervisor_id=supervisor_id)
+    get_open_slots: GetOpenSlotListCase = GetOpenSlotListCase(**resources)
+    return await get_open_slots(inspector=inspector)
+
+
+@router.get(
+    "/closed_list",
+    dependencies=[Depends(UserAuth(UserType.CLIENT))],
+    response_model=list[Slot],
+)
+async def get_closed_slot_list_view(
+        inspector: User = Depends(UserAuth(UserType.INSPECTOR))
+):
+    """
+    Получение списка слотов зарезервированных пользователем для инспектора КНО
+    """
+    resources: dict = dict(
+        slot_repo=SlotRepo,
+    )
+    get_open_slots: GetClosedSlotListCase = GetClosedSlotListCase(**resources)
+    return await get_open_slots(inspector=inspector)
+
+
+@router.get(
+    "/approved_list",
+    dependencies=[Depends(UserAuth(UserType.CLIENT))],
+    response_model=list[Slot],
+)
+async def get_approved_slot_list_view(
+        inspector: User = Depends(UserAuth(UserType.INSPECTOR))
+):
+    """
+    Получение списка слотов подтвержденных инспектором КНО
+    """
+    resources: dict = dict(
+        slot_repo=SlotRepo,
+    )
+    get_open_slots: GetApprovedSlotListCase = GetApprovedSlotListCase(**resources)
+    return await get_open_slots(inspector=inspector)

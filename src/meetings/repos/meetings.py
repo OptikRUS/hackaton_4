@@ -17,7 +17,7 @@ class Meeting(Model):
         "models.User", related_name="inspector", on_delete=fields.SET_NULL, null=True,
     )
     slot: fields.ForeignKeyNullableRelation["Slot"] = fields.ForeignKeyField(
-        "models.Slot", related_name="slots", on_delete=fields.SET_NULL, null=True,
+        "models.Slot", related_name="meeting", on_delete=fields.SET_NULL, null=True,
     )
     topic: fields.ForeignKeyNullableRelation["Topic"] = fields.ForeignKeyField("models.Topic", related_name="topic_name")
     start_url: str = fields.CharField(max_length=2048, description="URL начала встречи", null=True)

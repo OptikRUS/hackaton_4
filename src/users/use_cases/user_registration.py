@@ -26,5 +26,5 @@ class UserRegistration:
 
         user.password = self.hasher.hash(user.password)
 
-        new_user: User = await self.user_repo.create(user.dict())
+        new_user: User = await self.user_repo.create(user.dict(exclude_none=True))
         return new_user
